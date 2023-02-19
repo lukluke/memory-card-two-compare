@@ -51,6 +51,7 @@ function newGenerateBoard(){
 	document.getElementById('memory_board').innerHTML = output;
 }
 function memoryFlipTile(tile,val){
+    // memory_values.length < 2 for two card... if three le??
 	if(tile.innerHTML == "" && memory_values.length < 2){
 		tile.style.background = '#FFF';
 		tile.innerHTML = val;
