@@ -20,7 +20,7 @@ div#memory_board > div{
 	text-align:center;
 }
 </style>
-<script>
+<script> 
 
 // only for two card compare
 var memory_array = [];
@@ -118,6 +118,7 @@ function setTimer(duration, display) {
 
       if (minutes  == 0 && seconds == 0) {
         alert("time up");
+        location.reload();
         clearInterval(myInterval);
         return;
       }
