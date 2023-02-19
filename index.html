@@ -26,7 +26,7 @@ div#memory_board > div{
 <script>
 
 // only for two card compare
-var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
+var memory_array = [];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
@@ -41,9 +41,19 @@ Array.prototype.memory_tile_shuffle = function(){
         this[i] = temp;
     }
 }
+function createCardContent(){
+   // memory_array = [1, 1, 1];
+   var number = document.getElementById("number").value;
+    for(var i =0; i < number; i++) {
+       memory_array.push(i)
+       memory_array.push(i)
+       memory_array.push(i)
+    }
+}
 function newGenerateBoard(){
 	tiles_flipped = 0;
 	var output = '';
+    createCardContent();
     memory_array.memory_tile_shuffle();
 	for(var i = 0; i < memory_array.length; i++){
 		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
@@ -151,6 +161,8 @@ window.onload = function () {
 <body>
 Time: <p id="time"> 02:00</p>
 Score: <p id="score"> 0</p>
+<input type="number" id="number" />
+<button type="submit" onclick="newGenerateBoard()" >Submit</button>
 <div id="memory_board"></div>
 <script>newGenerateBoard();</script>
 </body>
