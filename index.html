@@ -30,6 +30,9 @@ var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H',
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
+var score = 0;
+
+//document.getElementById('score').innerHTML = "1";
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
     while(--i > 0){
@@ -64,6 +67,8 @@ function memoryFlipTile(tile,val){
 
                 // tiles_flipped += 2 for two, if three how to do le?
 				tiles_flipped += 2;
+                score += 3;
+                document.getElementById("score").innerHTML = score;
 				// Clear both arrays
 				memory_values = [];
             	memory_tile_ids = [];
@@ -75,6 +80,8 @@ function memoryFlipTile(tile,val){
 					newBoard();
 				}
 			} else {
+                score -= 1;
+                document.getElementById("score").innerHTML = score;
 				function flip2Back(){
 				    // Flip the 2 tiles back over
                     // if 3 how to le ???
@@ -143,6 +150,7 @@ window.onload = function () {
 </head>
 <body>
 Time: <p id="time"> 02:00</p>
+Score: <p id="score"> 0</p>
 <div id="memory_board"></div>
 <script>newGenerateBoard();</script>
 </body>
