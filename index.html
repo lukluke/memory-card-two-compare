@@ -39,7 +39,7 @@ Array.prototype.memory_tile_shuffle = function(){
         this[i] = temp;
     }
 }
-function newBoard(){
+function newGenerateBoard(){
 	tiles_flipped = 0;
 	var output = '';
     memory_array.memory_tile_shuffle();
@@ -96,9 +96,53 @@ function memoryFlipTile(tile,val){
 		}
 	}
 }
+
+function setTimer(duration, display) {
+  var timer = duration, minutes, seconds;
+  const myInterval = setInterval(function () {
+      minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10);
+
+      if (minutes  == 0 && seconds == 0) {
+        alert("time up");
+        clearInterval(myInterval);
+        return;
+      }
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (--timer < 0) {
+          timer = duration;
+      }
+  }, 1000);
+}
+
+window.onload = function () {
+  let time = "02:00";
+  let timeSplit = time.split(':');
+  let mins = parseInt(timeSplit[0])
+  let seconds = parseInt(timeSplit[1])
+
+  let times;
+  if (seconds == 0) {
+    times = 60 * mins;
+  } else if (mins == 0) {
+    times = 60 * (seconds/60);
+  } else {
+    times = 60 * (mins +(seconds/60));
+  }
+
+  var display = document.querySelector('#time');
+  setTimer(times, display);
+};
+
 </script>
 </head>
 <body>
+Time: <p id="time"> 02:00</p>
 <div id="memory_board"></div>
 <script>newGenerateBoard();</script>
 </body>
