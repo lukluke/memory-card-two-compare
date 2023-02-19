@@ -3,10 +3,7 @@
 <head>
 <style>
 div#memory_board{
-	background:#CCC;
-	border:#999 1px solid;
 	width:800px;
-	height:540px;
 	padding:24px;
 	margin:0px auto;
 }
@@ -42,7 +39,6 @@ Array.prototype.memory_tile_shuffle = function(){
     }
 }
 function createCardContent(){
-   // memory_array = [1, 1, 1];
    var number = document.getElementById("number").value;
     for(var i =0; i < number; i++) {
        memory_array.push(i)
@@ -164,6 +160,6 @@ Score: <p id="score"> 0</p>
 <input type="number" id="number" />
 <button type="submit" onclick="newGenerateBoard()" >Submit</button>
 <div id="memory_board"></div>
-<script>newGenerateBoard();</script>
+<script></script>
 </body>
 </html>
