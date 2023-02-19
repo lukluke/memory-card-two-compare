@@ -77,6 +77,9 @@ function memoryFlipTile(tile,val){
 			} else {
 				function flip2Back(){
 				    // Flip the 2 tiles back over
+                    // if 3 how to le ???
+                    // var tile_3 = document.getElementById(memory_tile_ids[2]);
+                    // ,,,,
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
 				    tile_1.style.background = 'no-repeat';
@@ -97,6 +100,6 @@ function memoryFlipTile(tile,val){
 </head>
 <body>
 <div id="memory_board"></div>
-<script>newBoard();</script>
+<script>newGenerateBoard();</script>
 </body>
 </html>
