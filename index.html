@@ -29,6 +29,7 @@ var memory_tile_ids = [];
 var tiles_flipped = 0;
 var score = 0;
 
+
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
     while(--i > 0){
@@ -40,7 +41,12 @@ Array.prototype.memory_tile_shuffle = function(){
 }
 function createCardContent(){
    var number = document.getElementById("number").value;
-    for(var i =0; i < number; i++) {
+   if (number %3 != 0) {
+    alert("input 3");
+    return;
+   }
+   startTimer();
+    for(var i =0; i < (number /3); i++) {
        memory_array.push(i)
        memory_array.push(i)
        memory_array.push(i)
@@ -57,8 +63,8 @@ function newGenerateBoard(){
 	document.getElementById('memory_board').innerHTML = output;
 }
 function memoryFlipTile(tile,val){
-    // memory_values.length < 2 for two card... if three le??
-	if(tile.innerHTML == "" && memory_values.length < 2){
+
+	if(tile.innerHTML == "" && memory_values.length < 3){
 		tile.style.background = '#FFF';
 		tile.innerHTML = val;
 		if(memory_values.length == 0){
@@ -67,38 +73,46 @@ function memoryFlipTile(tile,val){
 		} else if(memory_values.length == 1){
 			memory_values.push(val);
 			memory_tile_ids.push(tile.id);
+        } else {
+			memory_values.push(val);
 
-            // for two ..., if for three --> [0] == [1] == [2] ?
-			if(memory_values[0] == memory_values[1]){
+			memory_tile_ids.push(tile.id);
 
-                // tiles_flipped += 2 for two, if three how to do le?
-				tiles_flipped += 2;
+			if(memory_values[0] == memory_values[1] && memory_values[1] == memory_values[2] && memory_values[0] == memory_values[2]){
+
+				tiles_flipped += 3;
                 score += 3;
                 document.getElementById("score").innerHTML = score;
 				// Clear both arrays
 				memory_values = [];
             	memory_tile_ids = [];
 
-				// Check to see if the whole board is cleared
-				if(tiles_flipped == memory_array.length){
-					alert("Board cleared and generat new board");
-					document.getElementById('memory_board').innerHTML = "";
-					newGenerateBoard();
-				}
+                function winBlock(){
+                    if(tiles_flipped == memory_array.length){
+                        alert("win");
+                        memory_array = [];
+                        document.getElementById('memory_board').innerHTML = "";
+                        location.reload;
+                        
+				    }
+                }
+                setTimeout(winBlock, 300);
 			} else {
                 score -= 1;
                 document.getElementById("score").innerHTML = score;
 				function flip2Back(){
-				    // Flip the 2 tiles back over
-                    // if 3 how to le ???
-                    // var tile_3 = document.getElementById(memory_tile_ids[2]);
-                    // ,,,,
+
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
+                    var tile_3 = document.getElementById(memory_tile_ids[2]);
 				    tile_1.style.background = 'no-repeat';
             	    tile_1.innerHTML = "";
 				    tile_2.style.background = 'no-repeat';
             	    tile_2.innerHTML = "";
+                    tile_2.style.background = 'no-repeat';
+            	    tile_2.innerHTML = "";
+                    tile_3.style.background = 'no-repeat';
+            	    tile_3.innerHTML = "";
                     
 				    // Clear  arrays
 				    memory_values = [];
@@ -134,7 +148,7 @@ function setTimer(duration, display) {
   }, 1000);
 }
 
-window.onload = function () {
+ function startTimer() {
   let time = "02:00";
   let timeSplit = time.split(':');
   let mins = parseInt(timeSplit[0])
@@ -155,7 +169,7 @@ window.onload = function () {
 
 </script>
 </head>
-<body>
+<body> 
 Time: <p id="time"> 02:00</p>
 Score: <p id="score"> 0</p>
 <input type="number" id="number" />
